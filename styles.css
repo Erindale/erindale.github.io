@@ -20,10 +20,6 @@ body, html {
     width: 100%;
     height: 100%;
     position: relative;
-    --gradient-x: 50%;
-    --gradient-y: 50%;
-    --gradient-opacity: 0;
-    z-index: 0;
   }
   
   .banner-bg {
@@ -34,33 +30,13 @@ body, html {
     width: 110%;
     height: 110%;
     position: absolute;
-    z-index: -2;
+    z-index: -1;
     transition: filter 0.3s;
   }
   
   .blur-banner .banner-bg {
-    filter: blur(10px) brightness(0.8);
-    transition: filter 0.3s;
+    filter: blur(20px) brightness(0.8);
   }
-  
-  :root {
-    --mouse-x: 0;
-    --mouse-y: 0;
-  }
-  
-  .banner:before {
-    content: '';
-    background-image: radial-gradient(circle closest-side, rgba(0, 0, 0, 0) 50%, rgba(0, 0, 0, 0.5) 100%);
-    width: 100%;
-    height: 100%;
-    position: absolute;
-    z-index: -1;
-    pointer-events: none;
-    background-position: calc(0% + var(--mouse-x)) calc(0% + var(--mouse-y));
-    opacity: var(--gradient-opacity);
-    transition: opacity 0.3s;
-  }
-  
   
   .link {
     display: flex;
@@ -77,24 +53,28 @@ body, html {
     display: block;
     margin-bottom: 10px;
     transition: transform 0.3s;
-    /* background-color: red; */
-}
-
-    .link span {
+  }
+  
+  .link span {
     opacity: 0;
     transform: translateY(5px);
     transition: opacity 0.3s, transform 0.3s;
-}
-
-    .link:hover {
+  }
+  
+  .link:hover {
     color: #f1c40f;
-}
-
-    .link:hover img {
+  }
+  
+  .link:hover img {
     transform: translateY(-5px);
-}
-
-    .link:hover span {
+  }
+  
+  .link:hover span {
     opacity: 1;
     transform: translateY(0);
-}
+  }
+  
+  .dim-banner .banner-bg {
+    filter: brightness(0.8);
+  }
+  
