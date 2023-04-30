@@ -46,26 +46,35 @@ body, html {
     color: #fff;
     text-decoration: none;
     font-size: 32px; /* set the font size to 32 pixels */
-    font-family: 'Rubik', sans-serif; /* use Rubik font */
     transition: color 0.3s;
   }
   
   .link img {
-    width: 96px; /* increase the width of the icon image */
-    height: 96px; /* increase the height of the icon image */
+    width: 10vw; /* Use viewport width instead of fixed size */
+    height: 10vw; /* Use viewport width instead of fixed size */
     display: block;
-    margin-bottom: 20px; /* increase the margin bottom */
+    margin-bottom: 10px;
     transition: transform 0.3s;
   }
   
   .link span {
     opacity: 0;
-    transform: translateY(10px); /* adjust the distance of the text from the icon */
-    font-family: 'Rubik', sans-serif; /* use Rubik font */
-    font-size: 18px; /* set the font size of the text to 18 pixels */
+    transform: translateY(5px);
     transition: opacity 0.3s, transform 0.3s;
+    font-size: 1.5rem; /* Set initial font size */
   }
   
+  @media screen and (min-width: 600px) {
+    /* Adjust font size and icon size for larger screens */
+    .link img {
+      width: 5vw;
+      height: 5vw;
+    }
+  
+    .link span {
+      font-size: 2rem;
+    }
+  }
   
   .link:hover {
     color: #f1c40f;
