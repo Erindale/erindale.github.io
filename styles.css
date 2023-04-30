@@ -34,7 +34,7 @@ body, html {
     width: 110%;
     height: 110%;
     position: absolute;
-    z-index: -1;
+    z-index: -2;
     transition: filter 0.3s;
   }
   
@@ -49,7 +49,7 @@ body, html {
     width: 100%;
     height: 100%;
     position: absolute;
-    z-index: 0;
+    z-index: -1;
     pointer-events: none;
     background-position: var(--gradient-x) var(--gradient-y);
     opacity: var(--gradient-opacity);
