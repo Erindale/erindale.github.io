@@ -71,6 +71,7 @@ body, html {
     display: block;
     margin-bottom: 10px;
     transition: transform 0.3s;
+    background-color: red;
 }
 
     .link span {
