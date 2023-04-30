@@ -11,19 +11,19 @@ body, html {
     left: 0;
     display: flex;
     align-items: center;
-    padding: 3vw;
+    padding: 10px;
     z-index: 2;
   }
   
   .title-container img {
-    width: 20vw;
-    height: 20vw;
+    width: 5vw;
+    height: 5vw;
     margin-right: 2vw;
   }
   
   .title-container h1 {
     margin: 0;
-    font-size: 2vw;
+    font-size: 5vw;
     color: #fff;
   }
   
