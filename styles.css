@@ -92,5 +92,6 @@ body, html {
   
   .dim-banner .banner-bg {
     filter: brightness(0.8);
+    transition: filter 0.3s;
   }
   
