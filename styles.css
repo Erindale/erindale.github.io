@@ -23,7 +23,7 @@ body, html {
   
   .title-container h1 {
     margin: 0;
-    font-size: 5vw;
+    font-size:  1.5rem;
     color: #fff;
   }
   
@@ -55,7 +55,6 @@ body, html {
     position: absolute;
     z-index: -1;
     transition: filter 0.3s;
-    transform: translate(-50%, -50%);
   }
   
   .blur-banner .banner-bg {
@@ -90,6 +89,10 @@ body, html {
   
   @media screen and (min-width: 600px) {
     /* Adjust font size and icon size for larger screens */
+    .title-container h1 {
+        font-size:  2rem;
+    }
+
     .link img {
       width: 5vw;
       height: 5vw;
@@ -101,7 +104,7 @@ body, html {
   }
   
   .link:hover {
-    color: #f1c40f;
+    color: #fff;
   }
   
   .link:hover img {
