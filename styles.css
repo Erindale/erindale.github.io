@@ -39,7 +39,7 @@ body, html {
   }
   
   .blur-banner .banner-bg {
-    filter: blur(20px) brightness(0.8);
+    filter: blur(10px) brightness(0.8);
     transition: filter 0.3s;
   }
   
@@ -53,7 +53,7 @@ body, html {
     pointer-events: none;
     background-position: var(--gradient-x) var(--gradient-y);
     opacity: var(--gradient-opacity);
-    transition: opacity 0.3s;
+    transition: opacity 0.3s, background-position 0.3s;
   }
   
   .link {
@@ -71,7 +71,7 @@ body, html {
     display: block;
     margin-bottom: 10px;
     transition: transform 0.3s;
-    background-color: red;
+    /* background-color: red; */
 }
 
     .link span {
