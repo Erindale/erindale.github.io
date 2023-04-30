@@ -73,8 +73,8 @@ body, html {
   }
   
   .link img {
-    width: 15vw; /* Use viewport width instead of fixed size */
-    height: 15vw; /* Use viewport width instead of fixed size */
+    width: 10vw; /* Use viewport width instead of fixed size */
+    height: 10vw; /* Use viewport width instead of fixed size */
     display: block;
     margin-bottom: 10px;
     transition: transform 0.3s;
@@ -99,7 +99,7 @@ body, html {
     }
   
     .link span {
-      font-size: 2rem;
+      font-size: 1.5rem;
     }
   }
   
