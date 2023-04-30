@@ -23,6 +23,7 @@ body, html {
     --gradient-x: 50%;
     --gradient-y: 50%;
     --gradient-opacity: 0;
+    z-index: 1;
   }
   
   .banner-bg {
