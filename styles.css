@@ -2,7 +2,7 @@ body, html {
     margin: 0;
     padding: 0;
     height: 100%;
-    font-family: Arial, sans-serif;
+    font-family: 'Rubik', sans-serif;
   }
   
   .container {
@@ -45,22 +45,27 @@ body, html {
     align-items: center;
     color: #fff;
     text-decoration: none;
+    font-size: 32px; /* set the font size to 32 pixels */
+    font-family: 'Rubik', sans-serif; /* use Rubik font */
     transition: color 0.3s;
   }
   
   .link img {
-    width: 48px;
-    height: 48px;
+    width: 96px; /* increase the width of the icon image */
+    height: 96px; /* increase the height of the icon image */
     display: block;
-    margin-bottom: 10px;
+    margin-bottom: 20px; /* increase the margin bottom */
     transition: transform 0.3s;
   }
   
   .link span {
     opacity: 0;
-    transform: translateY(5px);
+    transform: translateY(10px); /* adjust the distance of the text from the icon */
+    font-family: 'Rubik', sans-serif; /* use Rubik font */
+    font-size: 18px; /* set the font size of the text to 18 pixels */
     transition: opacity 0.3s, transform 0.3s;
   }
+  
   
   .link:hover {
     color: #f1c40f;
