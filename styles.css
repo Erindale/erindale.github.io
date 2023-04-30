@@ -56,7 +56,7 @@ body, html {
     position: absolute;
     z-index: -1;
     pointer-events: none;
-    background-position: calc(50% + var(--mouse-x)/10) calc(50% + var(--mouse-y)/10);
+    background-position: calc(50% + var(--mouse-x)) calc(50% + var(--mouse-y));
     opacity: var(--gradient-opacity);
     transition: opacity 0.3s;
   }
