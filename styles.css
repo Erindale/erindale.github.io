@@ -87,7 +87,7 @@ body, html {
     font-size: 1.5rem; /* Set initial font size */
   }
   
-  @media screen and (min-width: 600px) {
+  @media screen and (min-width: 900px) {
     /* Adjust font size and icon size for larger screens */
     .title-container h1 {
         font-size:  2rem;
