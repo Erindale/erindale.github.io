@@ -36,7 +36,8 @@ body, html {
   }
   
   .blur-banner .banner-bg {
-    filter: blur(20px) brightness(0.8);
+    filter: blur(10px) brightness(0.8);
+    transition: filter 0.3s;
   }
   
   .link {
