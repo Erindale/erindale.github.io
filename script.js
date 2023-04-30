@@ -1,14 +1,15 @@
 document.addEventListener("DOMContentLoaded", () => {
     const banner = document.querySelector(".banner");
+    const bannerBg = document.querySelector(".banner-bg");
     const links = document.querySelectorAll(".link");
   
     banner.addEventListener("mousemove", (e) => {
       const offsetX = (window.innerWidth / 2 - e.pageX) / 25;
       const offsetY = (window.innerHeight / 2 - e.pageY) / 25;
   
+      bannerBg.style.backgroundPosition = `${offsetX}px ${offsetY}px`;
       banner.style.setProperty('--gradient-x', `${e.clientX}px`);
       banner.style.setProperty('--gradient-y', `${e.clientY}px`);
-      banner.style.backgroundPosition = `${offsetX}px ${offsetY}px`;
     });
   
     links.forEach((link) => {
