@@ -20,6 +20,9 @@ body, html {
     width: 100%;
     height: 100%;
     position: relative;
+    --gradient-x: 50%;
+    --gradient-y: 50%;
+    --gradient-opacity: 0;
   }
   
   .banner-bg {
@@ -27,8 +30,8 @@ body, html {
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
-    width: 100%;
-    height: 100%;
+    width: 110%;
+    height: 110%;
     position: absolute;
     z-index: -1;
   }
@@ -45,7 +48,8 @@ body, html {
     position: absolute;
     z-index: -1;
     pointer-events: none;
-    opacity: 0;
+    background-position: var(--gradient-x) var(--gradient-y);
+    opacity: var(--gradient-opacity);
     transition: opacity 0.3s;
   }
   

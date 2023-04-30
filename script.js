@@ -1,7 +1,6 @@
 document.addEventListener("DOMContentLoaded", () => {
     const banner = document.querySelector(".banner");
     const links = document.querySelectorAll(".link");
-    const bannerGradient = document.querySelector(".banner:before");
   
     banner.addEventListener("mousemove", (e) => {
       const offsetX = (window.innerWidth / 2 - e.pageX) / 25;
@@ -15,12 +14,13 @@ document.addEventListener("DOMContentLoaded", () => {
     links.forEach((link) => {
       link.addEventListener("mouseover", () => {
         banner.classList.add("blur-banner");
-        bannerGradient.style.opacity = 1;
+        banner.style.setProperty('--gradient-opacity', 1);
       });
   
       link.addEventListener("mouseout", () => {
         banner.classList.remove("blur-banner");
-        bannerGradient.style.opacity = 0;
+        banner.style.setProperty('--gradient-opacity', 0);
       });
     });
-  });  
+  });
+  
