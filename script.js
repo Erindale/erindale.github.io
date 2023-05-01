@@ -34,6 +34,17 @@ document.addEventListener("DOMContentLoaded", () => {
     fg.height = h;
     foreground.addChild(fg);
 
+    d = new PIXI.Sprite(ploader.resources.depth.texture);
+    d.width = w;
+    d.height = h;
+    container.addChild(d);
+
+    const scale = Math.max(w / fg.texture.width, h / fg.texture.height);
+    fg.width = fg.texture.width * scale;
+    fg.height = fg.texture.height * scale;
+    d.width = d.texture.width * scale;
+    d.height = d.texture.height * scale;
+
     blackLayer = new PIXI.Graphics();
     blackLayer.beginFill(0x000000);
     blackLayer.drawRect(0,0,w,h);
@@ -41,10 +52,6 @@ document.addEventListener("DOMContentLoaded", () => {
     blackLayer.alpha = 0;
     foreground.addChild(blackLayer)
 
-    d = new PIXI.Sprite(ploader.resources.depth.texture);
-    d.width = w;
-    d.height = h;
-    container.addChild(d);
     displacementFilter = new PIXI.filters.DisplacementFilter(d, 0);
 
     window.addEventListener("mousemove", (e) => {
