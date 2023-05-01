@@ -33,6 +33,13 @@ document.addEventListener("DOMContentLoaded", () => {
     fg.height = h;
     foreground.addChild(fg);
 
+    const blackLayer = new PIXI.Graphics();
+    blackLayer.beginFill(0x000000);
+    blackLayer.drawRect(0,0,w,h);
+    blackLayer.endFill();
+    blackLayer.alpha = 0;
+    foreground.addChild(blackLayer)
+
     d = new PIXI.Sprite(ploader.resources.depth.texture);
     d.width = w;
     d.height = h;
@@ -69,8 +76,7 @@ document.addEventListener("DOMContentLoaded", () => {
   });
 
   let targetBlur = 0;
-  let targetBrightness = 1;
-  
+
   function animate() {
     function updateTweens() {
       TWEEN.update();
@@ -85,7 +91,7 @@ document.addEventListener("DOMContentLoaded", () => {
     loop();
   }
   
-  let targetAlpha = 1;
+  let targetAlpha = 0;
   
   links.forEach((link) => {
     link.addEventListener("mouseover", () => {
@@ -99,11 +105,11 @@ document.addEventListener("DOMContentLoaded", () => {
         })
         .start();
   
-      let alphaTween = new TWEEN.Tween({ alpha: foreground.alpha })
+      let alphaTween = new TWEEN.Tween({ alpha: blackLayer.alpha })
         .to({ alpha: targetAlpha }, 500)
         .easing(TWEEN.Easing.Quadratic.Out)
         .onUpdate((obj) => {
-          foreground.alpha = obj.alpha;
+          blackLayer.alpha = obj.alpha;
         })
         .start();
     });
@@ -119,11 +125,11 @@ document.addEventListener("DOMContentLoaded", () => {
         })
         .start();
   
-      let alphaTween = new TWEEN.Tween({ alpha: foreground.alpha })
+      let alphaTween = new TWEEN.Tween({ alpha: blackLayer.alpha })
         .to({ alpha: targetAlpha }, 500)
         .easing(TWEEN.Easing.Quadratic.Out)
         .onUpdate((obj) => {
-          foreground.alpha = obj.alpha;
+          blackLayer.alpha = obj.alpha;
         })
         .start();
     });
