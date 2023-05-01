@@ -91,7 +91,7 @@ document.addEventListener("DOMContentLoaded", () => {
   blurFilter.blur = 0;
   const brightnessFilter = new PIXI.filters.ColorMatrixFilter();
   brightnessFilter.brightness(1);
-  fg.filters = [displacementFilter, blurFilter, brightnessFilter];
+  // fg.filters = [displacementFilter, blurFilter, brightnessFilter];
   
   function animate() {
   d.renderable = false;
