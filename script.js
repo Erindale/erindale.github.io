@@ -66,6 +66,8 @@ document.addEventListener("DOMContentLoaded", () => {
     blurFilter.blur = 0;
     fg.filters = [displacementFilter, blurFilter];
 
+    updateBlackLayerSize();
+
     animate();
   }
 
@@ -82,6 +84,13 @@ document.addEventListener("DOMContentLoaded", () => {
 
     renderer.resize(w, h);
   });
+
+  function updateBlackLayerSize() {
+    blackLayer.clear();
+    blackLayer.beginFill(0x000000);
+    blackLayer.drawRect(0, 0, w, h);
+    blackLayer.endFill();
+  }
 
   let targetBlur = 0;
 
