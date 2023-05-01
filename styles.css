@@ -72,13 +72,21 @@ body, html {
     position: absolute;
     z-index: -2;
   }
-  
+
   .depth-map-canvas {
     position: absolute;
     z-index: -1;
     width: 110%;
     height: 110%;
   }
+
+  .pixi-container {
+    position: absolute;
+    z-index: -1;
+    width: 110%;
+    height: 110%;
+  }
+  
 
   .link {
     display: flex;

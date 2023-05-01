@@ -9,6 +9,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Rubik:wght@500&display=swap" rel="stylesheet">
   <link rel="icon" type="image/png" href="icons/favicon.png">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/pixi.js/4.5.0/pixi.min.js"></script>
 </head>
 <body>
     <div class="gradient"></div>
@@ -18,7 +19,7 @@
     </div>
   <div class="container">
     <div class="banner">
-      <div class="banner-bg"></div>
+      <div id="pixi-container" class="pixi-container"></div>
       <canvas id="depth-map" class="depth-map-canvas"></canvas>
       <a class="link" href="https://discord.gg/erindalexyz" target="_blank">
         <img src="icons/discord_icon.png" alt="Discord">

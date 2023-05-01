@@ -1,57 +1,57 @@
 document.addEventListener("DOMContentLoaded", () => {
   const banner = document.querySelector(".banner");
-  const bannerBg = document.querySelector(".banner-bg");
-  const canvas = document.getElementById("depth-map");
-  const ctx = canvas.getContext("2d");
+  const pixiContainer = document.getElementById("pixi-container");
   const links = document.querySelectorAll(".link");
 
-  const mainImage = new Image();
-  mainImage.src = "images/erindale_rope_bridge_banner.webp";
-
-  const depthImage = new Image();
-  depthImage.src = "images/erindale_rope_bridge_banner_depth.webp";
-
-  let depthData = null;
-
-  const loadImageToCanvas = (image) => {
-    canvas.width = image.width;
-    canvas.height = image.height;
-    ctx.drawImage(image, 0, 0);
-    depthData = ctx.getImageData(0, 0, image.width, image.height).data;
-  };
-
-  depthImage.onload = () => {
-    loadImageToCanvas(depthImage);
-  };
-
-  const getDepth = (x, y, width) => {
-    const idx = (y * width + x) * 4;
-    return (depthData[idx] + depthData[idx + 1] + depthData[idx + 2]) / 3;
-  };
-
-  const updateParallax = (offsetX, offsetY) => {
-    const depthMultiplier = 0.5; // Adjust the multiplier to control the parallax effect strength
-
-    ctx.clearRect(0, 0, canvas.width, canvas.height);
-    ctx.drawImage(mainImage, offsetX, offsetY);
-
-    for (let y = 1; y < canvas.height; y++) {
-      for (let x = 1; x < canvas.width; x++) {
-        const depth = getDepth(x, y, canvas.width) / 255;
-        const dx = offsetX * depth * depthMultiplier;
-        const dy = offsetY * depth * depthMultiplier;
-
-        ctx.drawImage(mainImage, x + dx, y + dy, 1, 1, x, y, 1, 1);
-      }
-    }
-  };
-
-  banner.addEventListener("mousemove", (e) => {
-    const offsetX = (window.innerWidth / 2 - e.pageX) / 25;
-    const offsetY = (window.innerHeight / 2 - e.pageY) / 25;
-
-    updateParallax(offsetX, offsetY);
+  let w = window.innerWidth;
+  let h = window.innerHeight;
+  const renderer = new PIXI.WebGLRenderer(w, h, {
+    transparent: true,
   });
+
+  pixiContainer.appendChild(renderer.view);
+
+  const stage = new PIXI.Container();
+  const container = new PIXI.Container();
+  const foreground = new PIXI.Container();
+  stage.addChild(container);
+  stage.addChild(foreground);
+
+  const ploader = new PIXI.loaders.Loader();
+  ploader.add("fg", "images/erindale_rope_bridge_banner.webp");
+  ploader.add("depth", "images/erindale_rope_bridge_banner_depth.webp");
+
+  ploader.once("complete", startMagic);
+  ploader.load();
+
+  let fg, d, displacementFilter;
+
+  function startMagic() {
+    fg = new PIXI.Sprite(ploader.resources.fg.texture);
+    foreground.addChild(fg);
+
+    d = new PIXI.Sprite(ploader.resources.depth.texture);
+    displacementFilter = new PIXI.filters.DisplacementFilter(d, 0);
+    fg.filters = [displacementFilter];
+
+    window.addEventListener("mousemove", (e) => {
+      const offsetX = (window.innerWidth / 2 - e.pageX) / 25;
+      const offsetY = (window.innerHeight / 2 - e.pageY) / 25;
+
+      displacementFilter.scale.x = offsetX;
+      displacementFilter.scale.y = offsetY;
+    });
+
+    animate();
+  }
+
+  function animate() {
+    fg.addChild(d);
+    d.renderable = false;
+
+    renderer.render(stage);
+    requestAnimationFrame(animate);
+  }
   
     links.forEach((link) => {
       link.addEventListener("mouseover", () => {
