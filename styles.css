@@ -46,7 +46,7 @@ body, html {
   }
   
   .banner-bg {
-    background-image: url('images/erindale_rope_bridge_banner.webp'), url('images/erindale_rope_bridge_banner_depth.webp');
+    background-image: url('images/erindale_rope_bridge_banner.webp');
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
@@ -55,13 +55,22 @@ body, html {
     position: absolute;
     z-index: -1;
     transition: filter 0.3s;
-    background-attachment: fixed;
-    transform: translate(calc(var(--mouse-x) * -1px), calc(var(--mouse-y) * -1px), 0px)
   }
   
   .blur-banner .banner-bg {
     filter: blur(10px) brightness(0.8);
     transition: filter 0.3s;
+  }
+  
+  .depth-map {
+    background-image: url('images/erindale_rope_bridge_banner_depth.webp');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    width: 110%;
+    height: 110%;
+    position: absolute;
+    z-index: -2;
   }
   
   .link {
