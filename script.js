@@ -36,6 +36,7 @@ document.addEventListener("DOMContentLoaded", () => {
     d = new PIXI.Sprite(ploader.resources.depth.texture);
     d.width = w;
     d.height = h;
+    container.addChild(d); // Add depth map to the container instead of the foreground
     displacementFilter = new PIXI.filters.DisplacementFilter(d, 0);
     fg.filters = [displacementFilter];
 
@@ -51,7 +52,6 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 
   function animate() {
-    fg.addChild(d);
     d.renderable = false;
 
     renderer.render(stage);
