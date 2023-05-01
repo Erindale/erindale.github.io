@@ -48,8 +48,8 @@ document.addEventListener("DOMContentLoaded", () => {
     displacementFilter = new PIXI.filters.DisplacementFilter(d, 0);
 
     window.addEventListener("mousemove", (e) => {
-      const offsetX = (window.innerWidth / 2 - e.pageX) / 25;
-      const offsetY = (window.innerHeight / 2 - e.pageY) / 25;
+      const offsetX = (window.innerWidth / 2 - e.pageX) / 60;
+      const offsetY = (window.innerHeight / 2 - e.pageY) / 60;
 
       displacementFilter.scale.x = offsetX;
       displacementFilter.scale.y = offsetY;
@@ -97,7 +97,7 @@ document.addEventListener("DOMContentLoaded", () => {
   links.forEach((link) => {
     link.addEventListener("mouseover", () => {
       targetBlur = 10;
-      targetAlpha = 0.8;
+      targetAlpha = 0.4;
       let blurTween = new TWEEN.Tween({ blur: blurFilter.blur })
         .to({ blur: targetBlur }, 500)
         .easing(TWEEN.Easing.Quadratic.Out)
@@ -117,7 +117,7 @@ document.addEventListener("DOMContentLoaded", () => {
   
     link.addEventListener("mouseout", () => {
       targetBlur = 0;
-      targetAlpha = 1;
+      targetAlpha = 0;
       let blurTween = new TWEEN.Tween({ blur: blurFilter.blur })
         .to({ blur: targetBlur }, 500)
         .easing(TWEEN.Easing.Quadratic.Out)
