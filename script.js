@@ -64,19 +64,22 @@ document.addEventListener("DOMContentLoaded", () => {
     animate();
   }
 
-  function easeFilter(filter, property, targetValue, speed) {
-    const newValue = filter[property] + (targetValue - filter[property]) * speed;
-    filter[property] = newValue;
+  function easeFilter(filter, property, method, targetValue, speed) {
+    if (property) {
+      const newValue = filter[property] + (targetValue - filter[property]) * speed;
+      filter[property] = newValue;
+    } else if (method) {
+      const currentValue = filter[method](null);
+      const newValue = currentValue + (targetValue - currentValue) * speed;
+      filter[method](newValue);
+    }
   }
   
-  let targetBlur = 0;
-  let targetBrightness = 1;
-
   function animate() {
     d.renderable = false;
   
-    easeFilter(blurFilter, 'blur', targetBlur, 0.1);
-    easeFilter(brightnessFilter, 'brightness', targetBrightness, 0.1);
+    easeFilter(blurFilter, 'blur', null, targetBlur, 0.1);
+    easeFilter(brightnessFilter, null, 'brightness', targetBrightness, 0.1);
   
     renderer.render(stage);
     requestAnimationFrame(animate);
