@@ -56,17 +56,16 @@ document.addEventListener("DOMContentLoaded", () => {
   stage.addChild(foreground);
 
   const ploader = new PIXI.loaders.Loader();
-
+  let fgImageSrc = "images/erindale_rope_bridge_banner.webp";
+  let depthImageSrc = "images/erindale_rope_bridge_banner_depth.webp";
+  
   if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
-    ploader.add("fg", "images/dark_erindale_mosque.webp");
-    ploader.add("depth", "images/dark_erindale_mosque_depth.webp");
-  } else {
-    ploader.add("fg", "images/erindale_rope_bridge_banner.webp");
-    ploader.add("depth", "images/erindale_rope_bridge_banner_depth.webp");
+    fgImageSrc = "images/dark_erindale_mosque.webp";
+    depthImageSrc = "images/dark_erindale_mosque_depth.webp";
   }
-
-  ploader.once("complete", startMagic);
-  ploader.load();
+  
+  ploader.add("fg", fgImageSrc);
+  ploader.add("depth", depthImageSrc);
 
   function startMagic() {
     fg = new PIXI.Sprite(ploader.resources.fg.texture);
