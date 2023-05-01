@@ -151,6 +151,21 @@ body, html {
       height: 2vw;
     }
 
+    .popup-content {
+      flex-direction: column;
+      align-items: center;
+    }
+  
+    .popup-text {
+      width: 100%;
+    }
+  
+    .popup-image {
+      width: 0;
+      height: 0;
+      overflow: hidden;
+    }
+    
     .link img {
       width: 5vw;
       height: 5vw;
@@ -161,6 +176,8 @@ body, html {
     }
   }
   
+
+
   .link:hover {
     color: #fff;
   }
