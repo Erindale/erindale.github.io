@@ -12,7 +12,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
   pixiContainer.appendChild(renderer.view);
 
-  let fg, d, displacementFilter, blurFilter, brightnessFilter;
+  let fg, d, displacementFilter, blurFilter;
 
   const stage = new PIXI.Container();
   const container = new PIXI.Container();
@@ -49,9 +49,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
     blurFilter = new PIXI.filters.BlurFilter();
     blurFilter.blur = 0;
-    brightnessFilter = new PIXI.filters.ColorMatrixFilter();
-    brightnessFilter.brightness(1);
-    fg.filters = [displacementFilter, blurFilter, brightnessFilter];
+    fg.filters = [displacementFilter, blurFilter];
 
     animate();
   }
@@ -81,12 +79,13 @@ document.addEventListener("DOMContentLoaded", () => {
         blurFilter.blur = obj.blur;
       });
   
-    let brightnessTween = new TWEEN.Tween({ brightness: brightnessFilter.brightness() })
-      .to({ brightness: targetBrightness }, 500)
+    let alphaTween = new TWEEN.Tween({ alpha: foreground.alpha })
+      .to({ alpha: targetAlpha }, 500)
       .easing(TWEEN.Easing.Quadratic.Out)
       .onUpdate((obj) => {
-        brightnessFilter.brightness(obj.brightness);
-      });
+        foreground.alpha = obj.alpha;
+      })
+      .start();
   
     function updateTweens() {
       TWEEN.update();
@@ -101,10 +100,12 @@ document.addEventListener("DOMContentLoaded", () => {
     loop();
   }
   
+let targetAlpha = 1;
+
   links.forEach((link) => {
     link.addEventListener("mouseover", () => {
       targetBlur = 10;
-      targetBrightness = 0.8;
+      targetAlpha  = 0.8;
       let blurTween = new TWEEN.Tween({ blur: blurFilter.blur })
         .to({ blur: targetBlur }, 500)
         .easing(TWEEN.Easing.Quadratic.Out)
@@ -112,19 +113,12 @@ document.addEventListener("DOMContentLoaded", () => {
           blurFilter.blur = obj.blur;
         })
         .start();
-  
-      let brightnessTween = new TWEEN.Tween({ brightness: brightnessFilter.brightness() })
-        .to({ brightness: targetBrightness }, 500)
-        .easing(TWEEN.Easing.Quadratic.Out)
-        .onUpdate((obj) => {
-          brightnessFilter.brightness(obj.brightness);
-        })
-        .start();
+        alphaTween.start()
     });
   
     link.addEventListener("mouseout", () => {
       targetBlur = 0;
-      targetBrightness = 1;
+      targetAlpha  = 1;
       let blurTween = new TWEEN.Tween({ blur: blurFilter.blur })
         .to({ blur: targetBlur }, 500)
         .easing(TWEEN.Easing.Quadratic.Out)
@@ -132,14 +126,7 @@ document.addEventListener("DOMContentLoaded", () => {
           blurFilter.blur = obj.blur;
         })
         .start();
-  
-      let brightnessTween = new TWEEN.Tween({ brightness: brightnessFilter.brightness() })
-        .to({ brightness: targetBrightness }, 500)
-        .easing(TWEEN.Easing.Quadratic.Out)
-        .onUpdate((obj) => {
-          brightnessFilter.brightness(obj.brightness);
-        })
-        .start();
+        alphaTween.start()
     });
   });
 })  
