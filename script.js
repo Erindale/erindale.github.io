@@ -47,9 +47,9 @@ document.addEventListener("DOMContentLoaded", () => {
       displacementFilter.scale.y = offsetY;
     });
 
-    const blurFilter = new PIXI.filters.BlurFilter();
+    blurFilter = new PIXI.filters.BlurFilter();
     blurFilter.blur = 0;
-    const brightnessFilter = new PIXI.filters.ColorMatrixFilter();
+    brightnessFilter = new PIXI.filters.ColorMatrixFilter();
     brightnessFilter.brightness(1);
     fg.filters = [displacementFilter, blurFilter, brightnessFilter];
 
