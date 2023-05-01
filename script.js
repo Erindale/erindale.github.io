@@ -82,6 +82,12 @@ document.addEventListener("DOMContentLoaded", () => {
     d.width = d.texture.width * scale;
     d.height = d.texture.height * scale;
 
+    blackLayer.clear();
+    blackLayer.beginFill(0x000000);
+    blackLayer.drawRect(0, 0, w, h);
+    blackLayer.endFill();
+    blackLayer.alpha = 0;
+
     renderer.resize(w, h);
   });
 
