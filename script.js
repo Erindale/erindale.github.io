@@ -13,6 +13,7 @@ document.addEventListener("DOMContentLoaded", () => {
   pixiContainer.appendChild(renderer.view);
 
   let fg, d, displacementFilter, blurFilter;
+  let blackLayer;
 
   const stage = new PIXI.Container();
   const container = new PIXI.Container();
@@ -33,7 +34,7 @@ document.addEventListener("DOMContentLoaded", () => {
     fg.height = h;
     foreground.addChild(fg);
 
-    const blackLayer = new PIXI.Graphics();
+    blackLayer = new PIXI.Graphics();
     blackLayer.beginFill(0x000000);
     blackLayer.drawRect(0,0,w,h);
     blackLayer.endFill();
