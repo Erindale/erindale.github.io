@@ -41,11 +41,6 @@ document.addEventListener("DOMContentLoaded", () => {
 
   let fg, d, displacementFilter;
 
-  function easeFilter(filter, targetValue, speed) {
-    const newValue = filter.value + (targetValue - filter.value) * speed;
-    filter.value = newValue;
-  }  
-
   function startMagic() {
     fg = new PIXI.Sprite(ploader.resources.fg.texture);
     fg.width = w;
@@ -69,23 +64,31 @@ document.addEventListener("DOMContentLoaded", () => {
     animate();
   }
 
+  function easeFilter(filter, property, targetValue, speed) {
+    const newValue = filter[property] + (targetValue - filter[property]) * speed;
+    filter[property] = newValue;
+  }
+  
   let targetBlur = 0;
   let targetBrightness = 1;
 
   function animate() {
     d.renderable = false;
-
-    easeFilter(blurFilter, targetBlur, 0.1);
-    easeFilter(brightnessFilter, targetBrightness, 0.1);
-
+  
+    easeFilter(blurFilter, 'blur', targetBlur, 0.1);
+    easeFilter(brightnessFilter, 'brightness', targetBrightness, 0.1);
+  
     renderer.render(stage);
     requestAnimationFrame(animate);
   }
+  
 
   const blurFilter = new PIXI.filters.BlurFilter();
   blurFilter.blur = 0;
   const brightnessFilter = new PIXI.filters.ColorMatrixFilter();
   brightnessFilter.brightness(1);
+  fg.filters = [displacementFilter, blurFilter, brightnessFilter];
+
   
   
   links.forEach((link) => {
