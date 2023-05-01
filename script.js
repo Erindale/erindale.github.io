@@ -4,6 +4,14 @@ document.addEventListener("DOMContentLoaded", () => {
   const links = document.querySelectorAll(".link");
   const bannerBg = document.querySelector(".banner-bg");
 
+  const pageTitle = document.querySelector(".title");
+  const popup = document.querySelector(".popup");
+  
+  pageTitle.addEventListener("click", () => {
+    popup.style.display = "block";
+  });
+  
+
   let w = window.innerWidth;
   let h = window.innerHeight;
   const renderer = new PIXI.WebGLRenderer(w, h, {
