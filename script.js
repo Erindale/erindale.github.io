@@ -8,6 +8,7 @@ document.addEventListener("DOMContentLoaded", () => {
   const popup = document.querySelector(".popup");
   
   pageTitle.addEventListener("click", () => {
+    popup.style.display = "flex";
     let popupTween = new TWEEN.Tween({ opacity: 0 })
     .to({ opacity: 1 }, 300)
     .easing(TWEEN.Easing.Quadratic.Out)
@@ -17,21 +18,24 @@ document.addEventListener("DOMContentLoaded", () => {
     .start();
   });
   
-  // document.addEventListener("click", (event) => {
-  //   if (
-  //     event.target.closest(".popup") === null &&
-  //     event.target !== pageTitle &&
-  //     popup.style.opacity === "1"
-  // ) {
-  //   let popupTween = new TWEEN.Tween({ opacity: 1 })
-  //   .to({ opacity: 0 }, 300)
-  //   .easing(TWEEN.Easing.Quadratic.Out)
-  //   .onUpdate((obj) => {
-  //     popup.style.opacity = obj.opacity;
-  //   })
-  //   .start();
-  // }
-  // });
+  document.addEventListener("click", (event) => {
+    if (
+      event.target.closest(".popup-content") === null &&
+      event.target !== pageTitle &&
+      parseFloat(popup.style.opacity) === 1
+    ) {
+      let popupTween = new TWEEN.Tween({ opacity: 1 })
+        .to({ opacity: 0 }, 300)
+        .easing(TWEEN.Easing.Quadratic.Out)
+        .onUpdate((obj) => {
+          popup.style.opacity = obj.opacity;
+        })
+        .onComplete(() => { // Add this onComplete handler
+          popup.style.display = "none";
+        })
+        .start();
+    }
+  });
  
 
   let w = window.innerWidth;
