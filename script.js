@@ -59,13 +59,6 @@ document.addEventListener("DOMContentLoaded", () => {
   let fgImageSrc = "images/erindale_rope_bridge_banner.webp";
   let depthImageSrc = "images/erindale_rope_bridge_banner_depth.webp";
   
-  if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
-    fgImageSrc = "images/dark_erindale_mosque.webp";
-    depthImageSrc = "images/dark_erindale_mosque_depth.webp";
-  }
-  
-  ploader.add("fg", fgImageSrc);
-  ploader.add("depth", depthImageSrc);
   ploader.once("complete", startMagic);
   ploader.load();
 
