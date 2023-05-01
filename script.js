@@ -4,7 +4,6 @@ document.addEventListener("DOMContentLoaded", () => {
   const links = document.querySelectorAll(".link");
   const bannerBg = document.querySelector(".banner-bg");
 
-
   let w = window.innerWidth;
   let h = window.innerHeight;
   const renderer = new PIXI.WebGLRenderer(w, h, {
@@ -32,24 +31,22 @@ document.addEventListener("DOMContentLoaded", () => {
     fg = new PIXI.Sprite(ploader.resources.fg.texture);
     fg.width = w;
     fg.height = h;
-    fg.position.set((w - fg.width) / 2, (h - fg.height) / 2);
     foreground.addChild(fg);
-  
+
     d = new PIXI.Sprite(ploader.resources.depth.texture);
     d.width = w;
     d.height = h;
-    d.position.set((w - d.width) / 2, (h - d.height) / 2);
     displacementFilter = new PIXI.filters.DisplacementFilter(d, 0);
     fg.filters = [displacementFilter];
-  
+
     window.addEventListener("mousemove", (e) => {
       const offsetX = (window.innerWidth / 2 - e.pageX) / 25;
       const offsetY = (window.innerHeight / 2 - e.pageY) / 25;
-  
+
       displacementFilter.scale.x = offsetX;
       displacementFilter.scale.y = offsetY;
     });
-  
+
     animate();
   }
 
@@ -60,17 +57,16 @@ document.addEventListener("DOMContentLoaded", () => {
     renderer.render(stage);
     requestAnimationFrame(animate);
   }
-  
-    links.forEach((link) => {
-      link.addEventListener("mouseover", () => {
-        banner.classList.add("blur-banner");
-        bannerBg.classList.add("dim-banner");
-      });
-  
-      link.addEventListener("mouseout", () => {
-        banner.classList.remove("blur-banner");
-        bannerBg.classList.remove("dim-banner");
-      });
+
+  links.forEach((link) => {
+    link.addEventListener("mouseover", () => {
+      banner.classList.add("blur-banner");
+      bannerBg.classList.add("dim-banner");
+    });
+
+    link.addEventListener("mouseout", () => {
+      banner.classList.remove("blur-banner");
+      bannerBg.classList.remove("dim-banner");
     });
   });
-  
+});
