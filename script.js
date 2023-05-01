@@ -102,11 +102,12 @@ document.addEventListener("DOMContentLoaded", () => {
 
   links.forEach((link) => {
     link.addEventListener("mouseover", () => {
-      // fg.filters = [displacementFilter, blurFilter, brightnessFilter];
+      fg.filters = [displacementFilter, blurFilter, brightnessFilter];
       targetBlur = 10;
       targetBrightness = 0.8;
     });
     link.addEventListener("mouseout", () => {
+      fg.filters = [displacementFilter]
       targetBlur = 0;
       targetBrightness = 1;
     });
