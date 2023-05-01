@@ -4,7 +4,7 @@ document.addEventListener("DOMContentLoaded", () => {
   const links = document.querySelectorAll(".link");
   const bannerBg = document.querySelector(".banner-bg");
 
-  const pageTitle = document.querySelector(".title");
+  const pageTitle = document.getElementById("page-title");
   const popup = document.querySelector(".popup");
   
   pageTitle.addEventListener("click", () => {
