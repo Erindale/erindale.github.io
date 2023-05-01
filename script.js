@@ -10,6 +10,17 @@ document.addEventListener("DOMContentLoaded", () => {
     transparent: true,
   });
 
+  window.addEventListener("resize", () => {
+    w = window.innerWidth;
+    h = window.innerHeight;
+  
+    renderer.resize(w, h);
+    fg.width = w;
+    fg.height = h;
+    d.width = w;
+    d.height = h;
+  });
+  
   pixiContainer.appendChild(renderer.view);
 
   const stage = new PIXI.Container();
