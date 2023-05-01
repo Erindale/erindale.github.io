@@ -56,9 +56,9 @@ document.addEventListener("DOMContentLoaded", () => {
   stage.addChild(foreground);
 
   const ploader = new PIXI.loaders.Loader();
-  ploader.add("fg", "images/erindale_rope_bridge_banner.webp");
-  ploader.add("depth", "images/erindale_rope_bridge_banner_depth.webp");
-
+  let fgImageSrc = "images/erindale_rope_bridge_banner.webp";
+  let depthImageSrc = "images/erindale_rope_bridge_banner_depth.webp";
+  
   ploader.once("complete", startMagic);
   ploader.load();
 

@@ -46,24 +46,24 @@ body, html {
     width: 70%;
     background-color: #fff;
     display: flex;
-    flex-direction: row;
+    flex-direction: column;
     justify-content: space-between;
-    align-items: flex-start;
+    align-items: center;
     padding: 20px;
     border-radius: 10px;
     box-shadow: 0 4px 6px rgba(0,0,0,0.1);
   }
   
   .popup-text {
-    width: 60%;
+    width: 100%;
   }
   
   .popup-image {
-    width: 30%;
-    height: 300px;
-    position: relative;
+    width: 0;
+    height: 0;
+    overflow: hidden;
   }
-  
+
   .popup-image img {
     position: absolute;
     top: 0;
@@ -152,20 +152,20 @@ body, html {
     }
 
     .popup-content {
-      flex-direction: column;
-      align-items: center;
+      flex-direction: row;
+      align-items: flex-start;
     }
   
     .popup-text {
-      width: 100%;
+      width: 60%;
     }
   
     .popup-image {
-      width: 0;
-      height: 0;
-      overflow: hidden;
-    }
-    
+      width: 30;
+      height: 300;
+      position: relative;
+    }  
+
     .link img {
       width: 5vw;
       height: 5vw;
