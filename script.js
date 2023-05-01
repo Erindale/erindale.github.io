@@ -14,13 +14,16 @@ document.addEventListener("DOMContentLoaded", () => {
     w = window.innerWidth;
     h = window.innerHeight;
   
-    renderer.resize(w, h);
-    fg.width = w;
-    fg.height = h;
-    d.width = w;
-    d.height = h;
-  });
+    const scale = Math.max(w / fg.texture.width, h / fg.texture.height);
   
+    fg.width = fg.texture.width * scale;
+    fg.height = fg.texture.height * scale;
+    d.width = d.texture.width * scale;
+    d.height = d.texture.height * scale;
+  
+    renderer.resize(w, h);
+  });
+
   pixiContainer.appendChild(renderer.view);
 
   const stage = new PIXI.Container();
@@ -69,15 +72,22 @@ document.addEventListener("DOMContentLoaded", () => {
     requestAnimationFrame(animate);
   }
 
+  const blurFilter = new PIXI.filters.BlurFilter();
+  blurFilter.blur = 0;
+  const brightnessFilter = new PIXI.filters.ColorMatrixFilter();
+  brightnessFilter.brightness(1);
+  fg.filters = [displacementFilter, blurFilter, brightnessFilter];
+  
+
   links.forEach((link) => {
     link.addEventListener("mouseover", () => {
-      banner.classList.add("blur-banner");
-      bannerBg.classList.add("dim-banner");
+      blurFilter.blur = 10;
+      brightnessFilter.brightness(0.8);
     });
-
+  
     link.addEventListener("mouseout", () => {
-      banner.classList.remove("blur-banner");
-      bannerBg.classList.remove("dim-banner");
+      blurFilter.blur = 0;
+      brightnessFilter.brightness(1);
     });
-  });
+  });  
 });
