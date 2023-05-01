@@ -11,15 +11,14 @@ document.addEventListener("DOMContentLoaded", () => {
     popup.style.display = "block";
   });
   
-  document.addEventListener("click", (event) => {
-    // Check if the click happened outside of the popup
-    if (
-      event.target.closest(".popup") === null &&
-      popup.style.display === "block"
-    ) {
-      popup.style.display = "none";
-    }
-  });
+  // document.addEventListener("click", (event) => {
+  //   if (
+  //     event.target.closest(".popup") === null &&
+  //     popup.style.display === "block"
+  //   ) {
+  //     popup.style.display = "none";
+  //   }
+  // });
  
 
   let w = window.innerWidth;
