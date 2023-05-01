@@ -94,7 +94,7 @@ document.addEventListener("DOMContentLoaded", () => {
   // fg.filters = [displacementFilter, blurFilter, brightnessFilter];
   
   function animate() {
-    d.renderable = false;
+    // d.renderable = false;
     
     // Use tween.js to ease the filter properties
     let blurTween = new TWEEN.Tween(blurFilter)
