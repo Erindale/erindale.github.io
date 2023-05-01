@@ -76,16 +76,18 @@ document.addEventListener("DOMContentLoaded", () => {
   blurFilter.blur = 0;
   const brightnessFilter = new PIXI.filters.ColorMatrixFilter();
   brightnessFilter.brightness(1);
-  fg.filters = [displacementFilter, blurFilter, brightnessFilter];
   
   
   links.forEach((link) => {
     link.addEventListener("mouseover", () => {
+      fg.filters = [displacementFilter, blurFilter, brightnessFilter];
       blurFilter.blur = 10;
       brightnessFilter.brightness(0.8);
     });
   
     link.addEventListener("mouseout", () => {
+      fg.filters = [displacementFilter];
+
       blurFilter.blur = 0;
       brightnessFilter.brightness(1);
     });
