@@ -72,21 +72,6 @@ document.addEventListener("DOMContentLoaded", () => {
   let targetBrightness = 1;
   
   function animate() {
-    let blurTween = new TWEEN.Tween({ blur: blurFilter.blur })
-      .to({ blur: targetBlur }, 500)
-      .easing(TWEEN.Easing.Quadratic.Out)
-      .onUpdate((obj) => {
-        blurFilter.blur = obj.blur;
-      });
-  
-    let alphaTween = new TWEEN.Tween({ alpha: foreground.alpha })
-      .to({ alpha: targetAlpha }, 500)
-      .easing(TWEEN.Easing.Quadratic.Out)
-      .onUpdate((obj) => {
-        foreground.alpha = obj.alpha;
-      })
-      .start();
-  
     function updateTweens() {
       TWEEN.update();
     }
@@ -100,12 +85,12 @@ document.addEventListener("DOMContentLoaded", () => {
     loop();
   }
   
-let targetAlpha = 1;
-
+  let targetAlpha = 1;
+  
   links.forEach((link) => {
     link.addEventListener("mouseover", () => {
       targetBlur = 10;
-      targetAlpha  = 0.8;
+      targetAlpha = 0.8;
       let blurTween = new TWEEN.Tween({ blur: blurFilter.blur })
         .to({ blur: targetBlur }, 500)
         .easing(TWEEN.Easing.Quadratic.Out)
@@ -113,12 +98,19 @@ let targetAlpha = 1;
           blurFilter.blur = obj.blur;
         })
         .start();
-        alphaTween.start()
+  
+      let alphaTween = new TWEEN.Tween({ alpha: foreground.alpha })
+        .to({ alpha: targetAlpha }, 500)
+        .easing(TWEEN.Easing.Quadratic.Out)
+        .onUpdate((obj) => {
+          foreground.alpha = obj.alpha;
+        })
+        .start();
     });
   
     link.addEventListener("mouseout", () => {
       targetBlur = 0;
-      targetAlpha  = 1;
+      targetAlpha = 1;
       let blurTween = new TWEEN.Tween({ blur: blurFilter.blur })
         .to({ blur: targetBlur }, 500)
         .easing(TWEEN.Easing.Quadratic.Out)
@@ -126,7 +118,14 @@ let targetAlpha = 1;
           blurFilter.blur = obj.blur;
         })
         .start();
-        alphaTween.start()
+  
+      let alphaTween = new TWEEN.Tween({ alpha: foreground.alpha })
+        .to({ alpha: targetAlpha }, 500)
+        .easing(TWEEN.Easing.Quadratic.Out)
+        .onUpdate((obj) => {
+          foreground.alpha = obj.alpha;
+        })
+        .start();
     });
   });
 })  
