@@ -74,21 +74,22 @@ document.addEventListener("DOMContentLoaded", () => {
   let targetBrightness = 1;
   
   function animate() {
-    let blurTween = new TWEEN.Tween(blurFilter)
+    let targetBlur = blurFilter.blur;
+    let targetBrightness = brightnessFilter.brightness();
+
+    let blurTween = new TWEEN.Tween({ blur: blurFilter.blur })
       .to({ blur: targetBlur }, 500)
       .easing(TWEEN.Easing.Quadratic.Out)
-      .onUpdate(() => {
-        blurFilter.blur = blurTween._object.blur;
-      })
-      .start();
+      .onUpdate((obj) => {
+        blurFilter.blur = obj.blur;
+     });
   
-    let brightnessTween = new TWEEN.Tween(brightnessFilter)
-      .to({ brightness: targetBrightness }, 500)
-      .easing(TWEEN.Easing.Quadratic.Out)
-      .onUpdate(() => {
-        brightnessFilter.brightness(brightnessTween._object.brightness);
-      })
-      .start();
+    let brightnessTween = new TWEEN.Tween({ brightness: brightnessFilter.brightness() })
+     .to({ brightness: targetBrightness }, 500)
+     .easing(TWEEN.Easing.Quadratic.Out)
+     .onUpdate((obj) => {
+       brightnessFilter.brightness(obj.brightness);
+     });
   
     function updateTweens() {
       TWEEN.update();
