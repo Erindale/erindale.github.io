@@ -14,7 +14,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
   pixiContainer.appendChild(renderer.view);
 
-  let fg, d, displacementFilter;
+  let d, displacementFilter;
   let scale;
 
   const stage = new PIXI.Container();
