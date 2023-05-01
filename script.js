@@ -1,5 +1,3 @@
-let fg;
-
 document.addEventListener("DOMContentLoaded", () => {
   const banner = document.querySelector(".banner");
   const pixiContainer = document.getElementById("pixi-container");
@@ -14,8 +12,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
   pixiContainer.appendChild(renderer.view);
 
-  let d, displacementFilter;
-  let scale;
+  let fg, d, displacementFilter;
 
   const stage = new PIXI.Container();
   const container = new PIXI.Container();
@@ -39,15 +36,8 @@ document.addEventListener("DOMContentLoaded", () => {
     d = new PIXI.Sprite(ploader.resources.depth.texture);
     d.width = w;
     d.height = h;
-    container.addChild(d); // Add depth map to the container instead of the foreground
+    container.addChild(d);
     displacementFilter = new PIXI.filters.DisplacementFilter(d, 0);
-
-    // Calculate the scale factor once and reuse it on subsequent resize events
-    scale = Math.max(w / fg.texture.width, h / fg.texture.height);
-    fg.width = fg.texture.width * scale;
-    fg.height = fg.texture.height * scale;
-    d.width = d.texture.width * scale;
-    d.height = d.texture.height * scale;
 
     window.addEventListener("mousemove", (e) => {
       const offsetX = (window.innerWidth / 2 - e.pageX) / 25;
@@ -57,14 +47,21 @@ document.addEventListener("DOMContentLoaded", () => {
       displacementFilter.scale.y = offsetY;
     });
 
-    animate();
+    const blurFilter = new PIXI.filters.BlurFilter();
+    blurFilter.blur = 0;
+    const brightnessFilter = new PIXI.filters.ColorMatrixFilter();
+    brightnessFilter.brightness(1);
+    fg.filters = [displacementFilter, blurFilter, brightnessFilter];
+
+    animate(blurFilter, brightnessFilter);
   }
 
   window.addEventListener("resize", () => {
     w = window.innerWidth;
     h = window.innerHeight;
 
-    // Reuse the scale factor calculated in startMagic()
+    const scale = Math.max(w / fg.texture.width, h / fg.texture.height);
+
     fg.width = fg.texture.width * scale;
     fg.height = fg.texture.height * scale;
     d.width = d.texture.width * scale;
@@ -73,64 +70,46 @@ document.addEventListener("DOMContentLoaded", () => {
     renderer.resize(w, h);
   });
 
-  function easeFilter(filter, property, method, targetValue, speed) {
-    if (property) {
-      const newValue = filter[property] + (targetValue - filter[property]) * speed;
-      filter[property] = newValue;
-    } else if (method) {
-      const currentValue = filter[method](null);
-      const newValue = currentValue + (targetValue - currentValue) * speed;
-      filter[method](newValue);
-    }
-  }
+  function animate(blurFilter, brightnessFilter) {
+    let targetBlur = 0;
+    let targetBrightness = 1;
 
-  let targetBlur = 0;
-  let targetBrightness = 1;
+    links.forEach((link) => {
+      link.addEventListener("mouseover", () => {
+        targetBlur = 10;
+        targetBrightness = 0.8;
+      });
+      link.addEventListener("mouseout", () => {
+        targetBlur = 0;
+        targetBrightness = 1;
+      });
+    });
 
-  const blurFilter = new PIXI.filters.BlurFilter();
-  blurFilter.blur = 0;
-  const brightnessFilter = new PIXI.filters.ColorMatrixFilter();
-  brightnessFilter.brightness(1);
-  // fg.filters = [displacementFilter, blurFilter, brightnessFilter];
-  
-  function animate() {
-    // d.renderable = false;
-    
-    // Use tween.js to ease the filter properties
     let blurTween = new TWEEN.Tween(blurFilter)
       .to({ blur: targetBlur }, 500)
       .easing(TWEEN.Easing.Quadratic.Out)
       .onUpdate(() => {
         blurFilter.blur = blurTween._object.blur;
-      })
-      .start();
-  
+      });
+
     let brightnessTween = new TWEEN.Tween(brightnessFilter)
       .to({ brightness: targetBrightness }, 500)
       .easing(TWEEN.Easing.Quadratic.Out)
       .onUpdate(() => {
         brightnessFilter.brightness(brightnessTween._object.brightness);
       })
-      .start();
-  
-    // Update tween.js
-    TWEEN.update();
-  
-    renderer.render(stage);
-    requestAnimationFrame(animate);
-  }
-  
 
-  links.forEach((link) => {
-    link.addEventListener("mouseover", () => {
-      fg.filters = [displacementFilter, blurFilter, brightnessFilter];
-      targetBlur = 10;
-      targetBrightness = 0.8;
-    });
-    link.addEventListener("mouseout", () => {
-      fg.filters = [displacementFilter]
-      targetBlur = 0;
-      targetBrightness = 1;
-    });
+      function updateTweens() {
+        blurTween.update();
+        brightnessTween.update();
+      }
+      
+      function loop() {
+        updateTweens();
+        renderer.render(stage);
+        requestAnimationFrame(loop);
+      }
+      
+      loop();
+    }
   });
-});
