@@ -8,17 +8,29 @@ document.addEventListener("DOMContentLoaded", () => {
   const popup = document.querySelector(".popup");
   
   pageTitle.addEventListener("click", () => {
-    popup.style.display = "block";
+    let popupTween = new TWEEN.Tween({ opacity: 0 })
+    .to({ opacity: 1 }, 300)
+    .easing(TWEEN.Easing.Quadratic.Out)
+    .onUpdate((obj) => {
+      popup.style.opacity = obj.opacity;
+    })
+    .start();
   });
   
   document.addEventListener("click", (event) => {
     if (
       event.target.closest(".popup") === null &&
       event.target !== pageTitle &&
-      popup.style.display === "block"
-    ) {
-      popup.style.display = "none";
-    }
+      popup.style.opacity === "1"
+  ) {
+    let popupTween = new TWEEN.Tween({ opacity: 1 })
+    .to({ opacity: 0 }, 300)
+    .easing(TWEEN.Easing.Quadratic.Out)
+    .onUpdate((obj) => {
+      popup.style.opacity = obj.opacity;
+    })
+    .start();
+  }
   });
  
 
