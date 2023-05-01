@@ -74,22 +74,19 @@ document.addEventListener("DOMContentLoaded", () => {
   let targetBrightness = 1;
   
   function animate() {
-    let targetBlur = blurFilter.blur;
-    let targetBrightness = brightnessFilter.brightness();
-
     let blurTween = new TWEEN.Tween({ blur: blurFilter.blur })
       .to({ blur: targetBlur }, 500)
       .easing(TWEEN.Easing.Quadratic.Out)
       .onUpdate((obj) => {
         blurFilter.blur = obj.blur;
-     });
+      });
   
     let brightnessTween = new TWEEN.Tween({ brightness: brightnessFilter.brightness() })
-     .to({ brightness: targetBrightness }, 500)
-     .easing(TWEEN.Easing.Quadratic.Out)
-     .onUpdate((obj) => {
-       brightnessFilter.brightness(obj.brightness);
-     });
+      .to({ brightness: targetBrightness }, 500)
+      .easing(TWEEN.Easing.Quadratic.Out)
+      .onUpdate((obj) => {
+        brightnessFilter.brightness(obj.brightness);
+      });
   
     function updateTweens() {
       TWEEN.update();
@@ -103,7 +100,7 @@ document.addEventListener("DOMContentLoaded", () => {
   
     loop();
   }
-
+  
   links.forEach((link) => {
     link.addEventListener("mouseover", () => {
       targetBlur = 10;
@@ -116,4 +113,5 @@ document.addEventListener("DOMContentLoaded", () => {
       animate();
     });
   });
+  
 })
