@@ -11,30 +11,37 @@ document.addEventListener("DOMContentLoaded", () => {
   const depthImage = new Image();
   depthImage.src = "images/erindale_rope_bridge_banner_depth.webp";
 
-  depthImage.onload = () => {
-    canvas.width = depthImage.width;
-    canvas.height = depthImage.height;
-    ctx.drawImage(depthImage, 0, 0);
+  let depthData = null;
+
+  const loadImageToCanvas = (image) => {
+    canvas.width = image.width;
+    canvas.height = image.height;
+    ctx.drawImage(image, 0, 0);
+    depthData = ctx.getImageData(0, 0, image.width, image.height).data;
   };
 
-  const getDepth = (x, y) => {
-    const pixelData = ctx.getImageData(x, y, 1, 1).data;
-    return (pixelData[0] + pixelData[1] + pixelData[2]) / 3;
+  depthImage.onload = () => {
+    loadImageToCanvas(depthImage);
+  };
+
+  const getDepth = (x, y, width) => {
+    const idx = (y * width + x) * 4;
+    return (depthData[idx] + depthData[idx + 1] + depthData[idx + 2]) / 3;
   };
 
   const updateParallax = (offsetX, offsetY) => {
-    const depthMultiplier = 5; // Adjust the multiplier to control the parallax effect strength
+    const depthMultiplier = 0.5; // Adjust the multiplier to control the parallax effect strength
 
-    bannerBg.style.backgroundPosition = `${offsetX}px ${offsetY}px`;
-    mainImage.style.left = `${offsetX}px`;
-    mainImage.style.top = `${offsetY}px`;
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    ctx.drawImage(mainImage, offsetX, offsetY);
 
-    for (let y = 0; y < depthImage.height; y++) {
-      for (let x = 0; x < depthImage.width; x++) {
-        const depth = getDepth(x, y) / 255;
-        const xPos = x + offsetX * depth * depthMultiplier;
-        const yPos = y + offsetY * depth * depthMultiplier;
-        ctx.drawImage(mainImage, x, y, 1, 1, xPos, yPos, 1, 1);
+    for (let y = 1; y < canvas.height; y++) {
+      for (let x = 1; x < canvas.width; x++) {
+        const depth = getDepth(x, y, canvas.width) / 255;
+        const dx = offsetX * depth * depthMultiplier;
+        const dy = offsetY * depth * depthMultiplier;
+
+        ctx.drawImage(mainImage, x + dx, y + dy, 1, 1, x, y, 1, 1);
       }
     }
   };
