@@ -105,13 +105,41 @@ document.addEventListener("DOMContentLoaded", () => {
     link.addEventListener("mouseover", () => {
       targetBlur = 10;
       targetBrightness = 0.8;
-      animate();
+      let blurTween = new TWEEN.Tween({ blur: blurFilter.blur })
+        .to({ blur: targetBlur }, 500)
+        .easing(TWEEN.Easing.Quadratic.Out)
+        .onUpdate((obj) => {
+          blurFilter.blur = obj.blur;
+        })
+        .start();
+  
+      let brightnessTween = new TWEEN.Tween({ brightness: brightnessFilter.brightness() })
+        .to({ brightness: targetBrightness }, 500)
+        .easing(TWEEN.Easing.Quadratic.Out)
+        .onUpdate((obj) => {
+          brightnessFilter.brightness(obj.brightness);
+        })
+        .start();
     });
+  
     link.addEventListener("mouseout", () => {
       targetBlur = 0;
       targetBrightness = 1;
-      animate();
+      let blurTween = new TWEEN.Tween({ blur: blurFilter.blur })
+        .to({ blur: targetBlur }, 500)
+        .easing(TWEEN.Easing.Quadratic.Out)
+        .onUpdate((obj) => {
+          blurFilter.blur = obj.blur;
+        })
+        .start();
+  
+      let brightnessTween = new TWEEN.Tween({ brightness: brightnessFilter.brightness() })
+        .to({ brightness: targetBrightness }, 500)
+        .easing(TWEEN.Easing.Quadratic.Out)
+        .onUpdate((obj) => {
+          brightnessFilter.brightness(obj.brightness);
+        })
+        .start();
     });
   });
-  
-})
+})  
