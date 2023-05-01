@@ -70,46 +70,49 @@ document.addEventListener("DOMContentLoaded", () => {
     renderer.resize(w, h);
   });
 
-  function animate(blurFilter, brightnessFilter) {
-    let targetBlur = 0;
-    let targetBrightness = 1;
-
-    links.forEach((link) => {
-      link.addEventListener("mouseover", () => {
-        targetBlur = 10;
-        targetBrightness = 0.8;
-      });
-      link.addEventListener("mouseout", () => {
-        targetBlur = 0;
-        targetBrightness = 1;
-      });
-    });
-
+  let targetBlur = 0;
+  let targetBrightness = 1;
+  
+  function animate() {
     let blurTween = new TWEEN.Tween(blurFilter)
       .to({ blur: targetBlur }, 500)
       .easing(TWEEN.Easing.Quadratic.Out)
       .onUpdate(() => {
         blurFilter.blur = blurTween._object.blur;
-      });
-
+      })
+      .start();
+  
     let brightnessTween = new TWEEN.Tween(brightnessFilter)
       .to({ brightness: targetBrightness }, 500)
       .easing(TWEEN.Easing.Quadratic.Out)
       .onUpdate(() => {
         brightnessFilter.brightness(brightnessTween._object.brightness);
       })
-
-      function updateTweens() {
-        blurTween.update();
-        brightnessTween.update();
-      }
-      
-      function loop() {
-        updateTweens();
-        renderer.render(stage);
-        requestAnimationFrame(loop);
-      }
-      
-      loop();
+      .start();
+  
+    function updateTweens() {
+      TWEEN.update();
     }
+  
+    function loop() {
+      updateTweens();
+      renderer.render(stage);
+      requestAnimationFrame(loop);
+    }
+  
+    loop();
+  }
+
+  links.forEach((link) => {
+    link.addEventListener("mouseover", () => {
+      targetBlur = 10;
+      targetBrightness = 0.8;
+      animate();
+    });
+    link.addEventListener("mouseout", () => {
+      targetBlur = 0;
+      targetBrightness = 1;
+      animate();
+    });
   });
+})
