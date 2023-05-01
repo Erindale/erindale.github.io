@@ -53,7 +53,6 @@ document.addEventListener("DOMContentLoaded", () => {
     container.addChild(d); // Add depth map to the container instead of the foreground
     displacementFilter = new PIXI.filters.DisplacementFilter(d, 0);
     fg.filters = [displacementFilter];
-    const blurFilter = new PIXI.filters.BlurFilter(0);
 
     window.addEventListener("mousemove", (e) => {
       const offsetX = (window.innerWidth / 2 - e.pageX) / 25;
@@ -79,16 +78,15 @@ document.addEventListener("DOMContentLoaded", () => {
   brightnessFilter.brightness(1);
   fg.filters = [displacementFilter, blurFilter, brightnessFilter];
   
-
   links.forEach((link) => {
     link.addEventListener("mouseover", () => {
-      foreground.filters = [blurFilter];
       blurFilter.blur = 10;
+      brightnessFilter.brightness(0.8);
     });
   
     link.addEventListener("mouseout", () => {
-      foreground.filters = null;
+      blurFilter.blur = 0;
+      brightnessFilter.brightness(1);
     });
   });
-  
 });
