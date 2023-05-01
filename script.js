@@ -17,21 +17,21 @@ document.addEventListener("DOMContentLoaded", () => {
     .start();
   });
   
-  document.addEventListener("click", (event) => {
-    if (
-      event.target.closest(".popup") === null &&
-      event.target !== pageTitle &&
-      popup.style.opacity === "1"
-  ) {
-    let popupTween = new TWEEN.Tween({ opacity: 1 })
-    .to({ opacity: 0 }, 300)
-    .easing(TWEEN.Easing.Quadratic.Out)
-    .onUpdate((obj) => {
-      popup.style.opacity = obj.opacity;
-    })
-    .start();
-  }
-  });
+  // document.addEventListener("click", (event) => {
+  //   if (
+  //     event.target.closest(".popup") === null &&
+  //     event.target !== pageTitle &&
+  //     popup.style.opacity === "1"
+  // ) {
+  //   let popupTween = new TWEEN.Tween({ opacity: 1 })
+  //   .to({ opacity: 0 }, 300)
+  //   .easing(TWEEN.Easing.Quadratic.Out)
+  //   .onUpdate((obj) => {
+  //     popup.style.opacity = obj.opacity;
+  //   })
+  //   .start();
+  // }
+  // });
  
 
   let w = window.innerWidth;
