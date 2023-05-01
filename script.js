@@ -12,7 +12,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
   pixiContainer.appendChild(renderer.view);
 
-  let fg, d, displacementFilter;
+  let fg, d, displacementFilter, blurFilter, brightnessFilter;
 
   const stage = new PIXI.Container();
   const container = new PIXI.Container();
@@ -53,7 +53,7 @@ document.addEventListener("DOMContentLoaded", () => {
     brightnessFilter.brightness(1);
     fg.filters = [displacementFilter, blurFilter, brightnessFilter];
 
-    animate(blurFilter, brightnessFilter);
+    animate();
   }
 
   window.addEventListener("resize", () => {
