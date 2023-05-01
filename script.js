@@ -1,3 +1,5 @@
+let fg;
+
 document.addEventListener("DOMContentLoaded", () => {
   const banner = document.querySelector(".banner");
   const pixiContainer = document.getElementById("pixi-container");
