@@ -61,24 +61,6 @@ body, html {
     filter: blur(10px) brightness(0.8);
     transition: filter 0.3s;
   }
-  
-  .depth-map {
-    background-image: url('images/erindale_rope_bridge_banner_depth.webp');
-    background-size: cover;
-    background-position: center;
-    background-repeat: no-repeat;
-    width: 110%;
-    height: 110%;
-    position: absolute;
-    z-index: -2;
-  }
-
-  .depth-map-canvas {
-    position: absolute;
-    z-index: -1;
-    width: 110%;
-    height: 110%;
-  }
 
   .pixi-container {
     position: absolute;
@@ -94,7 +76,6 @@ body, html {
     align-items: center;
     color: #fff;
     text-decoration: none;
-    font-size: 32px; /* set the font size to 32 pixels */
     transition: color 0.3s;
   }
   
