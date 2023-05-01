@@ -66,6 +66,8 @@ document.addEventListener("DOMContentLoaded", () => {
   
   ploader.add("fg", fgImageSrc);
   ploader.add("depth", depthImageSrc);
+  ploader.once("complete", startMagic);
+  ploader.load();
 
   function startMagic() {
     fg = new PIXI.Sprite(ploader.resources.fg.texture);
