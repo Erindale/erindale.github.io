@@ -94,13 +94,32 @@ document.addEventListener("DOMContentLoaded", () => {
   // fg.filters = [displacementFilter, blurFilter, brightnessFilter];
   
   function animate() {
-  d.renderable = false;
-  easeFilter(blurFilter, 'blur', null, targetBlur, 0.1);
-  easeFilter(brightnessFilter, null, 'brightness', targetBrightness, 0.1);
-
-  renderer.render(stage);
-  requestAnimationFrame(animate);
+    d.renderable = false;
+    
+    // Use tween.js to ease the filter properties
+    let blurTween = new TWEEN.Tween(blurFilter)
+      .to({ blur: targetBlur }, 500)
+      .easing(TWEEN.Easing.Quadratic.Out)
+      .onUpdate(() => {
+        blurFilter.blur = blurTween._object.blur;
+      })
+      .start();
+  
+    let brightnessTween = new TWEEN.Tween(brightnessFilter)
+      .to({ brightness: targetBrightness }, 500)
+      .easing(TWEEN.Easing.Quadratic.Out)
+      .onUpdate(() => {
+        brightnessFilter.brightness(brightnessTween._object.brightness);
+      })
+      .start();
+  
+    // Update tween.js
+    TWEEN.update();
+  
+    renderer.render(stage);
+    requestAnimationFrame(animate);
   }
+  
 
   links.forEach((link) => {
     link.addEventListener("mouseover", () => {
