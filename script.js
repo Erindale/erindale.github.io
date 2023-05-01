@@ -41,6 +41,11 @@ document.addEventListener("DOMContentLoaded", () => {
 
   let fg, d, displacementFilter;
 
+  function easeFilter(filter, targetValue, speed) {
+    const newValue = filter.value + (targetValue - filter.value) * speed;
+    filter.value = newValue;
+  }  
+
   function startMagic() {
     fg = new PIXI.Sprite(ploader.resources.fg.texture);
     fg.width = w;
@@ -64,9 +69,14 @@ document.addEventListener("DOMContentLoaded", () => {
     animate();
   }
 
+  let targetBlur = 0;
+  let targetBrightness = 1;
 
   function animate() {
     d.renderable = false;
+
+    easeFilter(blurFilter, targetBlur, 0.1);
+    easeFilter(brightnessFilter, targetBrightness, 0.1);
 
     renderer.render(stage);
     requestAnimationFrame(animate);
@@ -80,16 +90,20 @@ document.addEventListener("DOMContentLoaded", () => {
   
   links.forEach((link) => {
     link.addEventListener("mouseover", () => {
-      fg.filters = [displacementFilter, blurFilter, brightnessFilter];
-      blurFilter.blur = 10;
-      brightnessFilter.brightness(0.8);
+      // fg.filters = [displacementFilter, blurFilter, brightnessFilter];
+      // blurFilter.blur = 10;
+      // brightnessFilter.brightness(0.8);
+      targetBlur = 10;
+      targetBrightness = 0.8;
     });
   
     link.addEventListener("mouseout", () => {
-      fg.filters = [displacementFilter];
+      // fg.filters = [displacementFilter];
 
-      blurFilter.blur = 0;
-      brightnessFilter.brightness(1);
+      // blurFilter.blur = 0;
+      // brightnessFilter.brightness(1);
+      targetBlur = 0;
+      targetBrightness = 1;
     });
   });
 });
