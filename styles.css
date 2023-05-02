@@ -72,7 +72,7 @@ body, html {
     height: 100%;
     object-fit: cover;
     object-position: center;
-    display: block;
+    display: flex;
   }
 
   .container {
@@ -168,7 +168,7 @@ body, html {
     }  
 
     .popup-image img{
-      display: flex;
+      display: block;
     }
 
     .link img {
