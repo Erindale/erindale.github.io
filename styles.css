@@ -162,6 +162,7 @@ body, html {
       width: 40%;
       height: 300px;
       position: relative;
+      display: none;
     }  
 
     .link img {
