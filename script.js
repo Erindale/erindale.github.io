@@ -59,8 +59,12 @@ document.addEventListener("DOMContentLoaded", () => {
   let fgImageSrc = "images/erindale_rope_bridge_banner.webp";
   let depthImageSrc = "images/erindale_rope_bridge_banner_depth.webp";
   
+  ploader.add('fg', fgImageSrc);
+  ploader.add('depth', depthImageSrc);
+  
   ploader.once("complete", startMagic);
   ploader.load();
+  
 
   function startMagic() {
     fg = new PIXI.Sprite(ploader.resources.fg.texture);
