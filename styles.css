@@ -161,8 +161,8 @@ body, html {
     }
   
     .popup-image {
-      width: 30;
-      height: 300;
+      width: 30px;
+      height: 300px;
       position: relative;
     }  
 
