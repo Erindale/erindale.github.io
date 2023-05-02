@@ -60,6 +60,7 @@ body, html {
   
   .popup-image {
     overflow: hidden;
+    display: none;
   }
 
   .popup-image img {
@@ -162,7 +163,6 @@ body, html {
       width: 40%;
       height: 300px;
       position: relative;
-      display: none;
     }  
 
     .link img {
